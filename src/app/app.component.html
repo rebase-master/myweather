@@ -1,0 +1,50 @@
+<div id="appcontainer">
+  <div class="page-header">
+    <div class="formcontainer">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Lucknow, IN" aria-describedby="basic-addon2">
+        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon2"></span>
+      </div>
+    </div>
+    <article id="ui-main" *ngIf="currentWeather">
+      <div class="clearfix">
+        <section class="weatherinfo col-sm-9">
+          <div class="place">
+            <div class="date">
+              <p>{{currentWeather.date}}</p>
+            </div>
+          </div>
+          <div class="temp_details">
+            <p *ngIf="currentWeather.temp_min != currentWeather.temp_max" class="minmax">
+              <span class="max_temp">Day {{currentWeather.temp_min}} <span class="temp_suffix"></span>C</span> /
+              <span class="min_temp">Night {{currentWeather.temp_max}} <span class="temp_suffix"></span>C</span>
+            </p>
+            <h1 class="temp">{{currentWeather.temp}}<span class="temp_suffix"></span>C</h1>
+            <h4 class="weather">{{currentWeather.weather_description}}</h4>
+            <div class="extrainfo">
+              <p>Humidity: {{currentWeather.humidity}}</p>
+              <p>Wind: {{currentWeather.wind.speed}} m/s {{currentWeather.wind.degree}}</p>
+            </div>
+          </div>
+        </section>
+        <section class="ui-icon-container col-sm-3">
+          <div class="ui-icon">
+            <!--<img [src]="currentWeather.weather_icon" alt="">-->
+          </div>
+        </section>
+
+      </div>
+    </article>
+
+  </div>
+
+  <div id="weatherlist" *ngFor="let item of weather" class="clearfix">
+
+    <div class="col-sm-12 day">
+      <h3>{{item.temp}}</h3>
+      <p>{{item.weather_description}}</p>
+      <small>{{item.temp_max}}/{{item.temp_min}}</small>
+    </div>
+  </div>
+
+</div>

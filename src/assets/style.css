@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,600,700,900');
+
+body{
+  background: url('type2x.png') 0 0 repeat;
+}
+
+.body{
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+.page-header {
+  background-color: #0277bd;
+  border-bottom: 1px solid #eee;
+  color: #fff;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+#appcontainer{
+  background-color: #fff;
+  border: 1px solid #333;
+  margin: 0 auto;
+  width: 500px;
+}
+
+#appcontainer #ui-main {
+  margin-top: 30px;
+}
+
+.page-header .ui-icon img {
+  height: 100%;
+  max-width: 120px;
+  width: 100%;
+}
+.page-header .temp{
+  font-size: 50px;
+  font-weight: 600;
+}
+.page-header .temp small{
+  color: #eee;
+  font-weight: 300;
+}
+.temp_suffix::before{
+  content: '\00b0';
+}
+.formcontainer .input-group .form-control{
+  border-right: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.formcontainer .input-group span{
+  background-color: #fff;
+  top: 0;
+}
+
+.temp_details .minmax{
+  color: #cccccc;
+}
+.weatherinfo .place {
+  color: #ffec41;
+  font-weight: 900;
+}
+
+.extrainfo{
+  margin-top:20px;
+}
+.extrainfo p {
+  color: #eee;
+  font-size: 12px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+
+#weatherlist .day{
+  border-bottom: 1px solid #eee;
+  padding: 5px 0 10px 20px;
+}

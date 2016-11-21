@@ -1,0 +1,26 @@
+{
+  "name": "myweather",
+  "description": "simple weather app",
+  "main": "index.html",
+  "authors": [
+    "steady-daddy <thisismansoorkhan@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "weather",
+    "forecast",
+    "app"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
