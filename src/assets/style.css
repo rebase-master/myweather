@@ -11,7 +11,7 @@ body{
 }
 
 .page-header {
-  background-color: #0277bd;
+  /*background-color: #0277bd;*/
   border-bottom: 1px solid #eee;
   color: #fff;
   margin: 0;
@@ -19,7 +19,16 @@ body{
 }
 
 #appcontainer{
-  background-color: #fff;
+
+
+  /*background: #4B79A1; !* fallback for old browsers *!*/
+  /*background: -webkit-linear-gradient(to left, #4B79A1 , #283E51); !* Chrome 10-25, Safari 5.1-6 *!*/
+  /*background: linear-gradient(to left, #4B79A1 , #283E51); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+
+  background: #0277bd; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #0277bd , #000004); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #0277bd , #000004); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /*background-color: #fff;*/
   border: 1px solid #333;
   margin: 0 auto;
   width: 500px;
@@ -28,7 +37,15 @@ body{
 #appcontainer #ui-main {
   margin-top: 30px;
 }
-
+#appcontainer .errorContainer {
+  margin: 30px 20px;
+  padding: 10px;
+  text-align: center;
+}
+#appcontainer .errorContainer .error{
+  font-weight: 300;
+  text-shadow: 1px 1px 1px #333;
+}
 .page-header .ui-icon img {
   height: 100%;
   max-width: 120px;
@@ -79,3 +96,21 @@ body{
   border-bottom: 1px solid #eee;
   padding: 5px 0 10px 20px;
 }
+
+#intraday{
+  color: #ffffff;
+}
+#intraday tr>td:first-child{
+  text-transform: uppercase;
+}
+#intraday .unit {
+  background-color: #f8f8f8;
+  border: 1px solid #eee;
+  float: left;
+  padding: 10px 30px;
+  width: 200px;
+}
+#intraday tr td{
+  padding: 20px 10px;
+}
+

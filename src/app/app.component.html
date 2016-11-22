@@ -2,7 +2,11 @@
   <div class="page-header">
     <div class="formcontainer">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Lucknow, IN" aria-describedby="basic-addon2">
+        <input type="text" [(ngModel)]="query" class="form-control" placeholder="{{location}}"
+               aria-describedby="basic-addon2"
+               (keyup.enter)="loadWeatherData(query)"
+               value="{{location}}"
+        >
         <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon2"></span>
       </div>
     </div>
@@ -16,13 +20,13 @@
           </div>
           <div class="temp_details">
             <p *ngIf="currentWeather.temp_min != currentWeather.temp_max" class="minmax">
-              <span class="max_temp">Day {{currentWeather.temp_min}} <span class="temp_suffix"></span>C</span> /
-              <span class="min_temp">Night {{currentWeather.temp_max}} <span class="temp_suffix"></span>C</span>
+              <span class="max_temp">Day {{currentWeather.main.temp_min}} <span class="temp_suffix"></span>C</span> /
+              <span class="min_temp">Night {{currentWeather.main.temp_max}} <span class="temp_suffix"></span>C</span>
             </p>
-            <h1 class="temp">{{currentWeather.temp}}<span class="temp_suffix"></span>C</h1>
-            <h4 class="weather">{{currentWeather.weather_description}}</h4>
+            <h1 class="temp">{{currentWeather.main.temp}}<span class="temp_suffix"></span>C</h1>
+            <h4 class="weather">{{currentWeather.weather.description}}</h4>
             <div class="extrainfo">
-              <p>Humidity: {{currentWeather.humidity}}</p>
+              <p>Humidity: {{currentWeather.main.humidity}}</p>
               <p>Wind: {{currentWeather.wind.speed}} m/s {{currentWeather.wind.degree}}</p>
             </div>
           </div>
@@ -36,15 +40,79 @@
       </div>
     </article>
 
+    <div class="errorContainer" *ngIf="hasError">
+        <h2 class="error">Could not fetch weather information for the given city!</h2>
+    </div>
   </div>
 
-  <div id="weatherlist" *ngFor="let item of weather" class="clearfix">
+  <div id="intraday">
 
-    <div class="col-sm-12 day">
-      <h3>{{item.temp}}</h3>
-      <p>{{item.weather_description}}</p>
-      <small>{{item.temp_max}}/{{item.temp_min}}</small>
+    <table class="table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Temp (min/max)</th>
+        <th>Humidity</th>
+        <th>Wind</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngIf="today.morning">
+        <td><h4>morning</h4></td>
+        <td>
+          <h4>{{today.morning.main.temp}}  <span class="temp_suffix"></span>C
+            <small>{{today.morning.main.temp_min}}/{{today.morning.main.temp_max}}</small>
+          </h4>
+          <!--<strong>{{today.morning.weather.description}}</strong>-->
+        </td>
+        <td><h4>{{today.morning.main.humidity}}%</h4></td>
+        <td><h4>{{today.morning.wind.speed}} M/S</h4></td>
+      </tr>
+      <tr *ngIf="today.noon">
+        <td><h4>noon</h4></td>
+        <td>
+          <h4>{{today.noon.main.temp}}  <span class="temp_suffix"></span>C
+            <small>{{today.noon.main.temp_min}}/{{today.noon.main.temp_max}}</small>
+          </h4>
+          <!--<strong>{{today.noon.weather.description}}</strong>-->
+        </td>
+        <td><h4>{{today.noon.main.humidity}}%</h4></td>
+        <td><h4>{{today.noon.wind.speed}} M/S</h4></td>
+      </tr>
+      <tr *ngIf="today.evening">
+        <td><h4>evening</h4></td>
+        <td>
+          <h4>{{today.evening.main.temp}}  <span class="temp_suffix"></span>C
+            <small>{{today.evening.main.temp_min}}/{{today.evening.main.temp_max}}</small>
+          </h4>
+          <!--<strong>{{today.evening.weather.description}}</strong>-->
+        </td>
+        <td><h4>{{today.evening.main.humidity}}%</h4></td>
+        <td><h4>{{today.evening.wind.speed}} M/S</h4></td>
+      </tr>
+      <tr *ngIf="today.night">
+        <td><h4>night</h4></td>
+        <td>
+          <h4>{{today.night.main.temp}}  <span class="temp_suffix"></span>C
+            <small>{{today.night.main.temp_min}}/{{today.night.main.temp_max}}</small>
+          </h4>
+          <!--<strong>{{today.night.weather.description}}</strong>-->
+        </td>
+        <td><h4>{{today.night.main.humidity}}%</h4></td>
+        <td><h4>{{today.night.wind.speed}} M/S</h4></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div id="weatherlist" *ngFor="let item of weather" class="clearfix hide">
+
+      <div class="col-sm-12 day">
+        <h3>{{item.main.temp}}</h3>
+        <p>{{item.weather.description}}</p>
+        <small>{{item.main.temp_max}}/{{item.main.temp_min}}</small>
+      </div>
     </div>
+
   </div>
 
 </div>
