@@ -81,28 +81,28 @@ export class AppComponent implements OnInit{
         }
       };
 
-      var daySlice = 'noon';
+      var dayTime = 'noon';
 
       if(date.getHours() == 6) {
-        daySlice = 'morning';
+        dayTime = 'morning';
       }
       else if(date.getHours() == 12){
-        daySlice = 'noon';
+        dayTime = 'noon';
       }
       else if(date.getHours() == 18){
-        daySlice = 'evening';
+        dayTime = 'evening';
       }
       else if(date.getHours() == 21){
-        daySlice = 'night';
+        dayTime = 'night';
       }
 
       if(dateToday.getDate() == date.getDate()){
-        this.today[daySlice] = new WeatherModel(obj);
+        this.today[dayTime] = new WeatherModel(obj);
       }else{
         if(!this.otherDays.hasOwnProperty(shortDayName)){
             this.otherDays[shortDayName] = [];
         }else{
-            this.otherDays[shortDayName][daySlice] = new WeatherModel(obj);
+            this.otherDays[shortDayName][dayTime] = new WeatherModel(obj);
         }
       }
 
@@ -110,8 +110,20 @@ export class AppComponent implements OnInit{
         new WeatherModel(obj)
       );
     }
+    console.log("dayTime: "+dayTime);
+    console.log(this.today);
+    if(this.today.hasOwnProperty('morning'))
+      this.currentWeather = this.today['morning'];
+    else if(this.today.hasOwnProperty('noon'))
+      this.currentWeather = this.today['noon'];
+    else if(this.today.hasOwnProperty('evening'))
+      this.currentWeather = this.today['evening'];
+    else
+      this.currentWeather = this.today['night'];
 
-    this.currentWeather = this.today['noon'];
+
+    console.log(this.currentWeather);
+
   }
 
   //Call service method to get weather data from API

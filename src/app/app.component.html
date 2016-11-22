@@ -12,7 +12,7 @@
     </div>
     <article id="ui-main" *ngIf="currentWeather">
       <div class="clearfix">
-        <section class="weatherinfo col-sm-9">
+        <section class="weatherinfo col-sm-7">
           <div class="place">
             <div class="date">
               <p>{{currentWeather.date}}</p>
@@ -31,8 +31,8 @@
             </div>
           </div>
         </section>
-        <section class="ui-icon-container col-sm-3">
-          <div class="ui-icon">
+        <section class="ui-icon-container col-sm-5">
+          <div class="ui-icon temp">
             <!--<img [src]="currentWeather.weather_icon" alt="">-->
           </div>
         </section>
@@ -48,58 +48,98 @@
   <div id="intraday">
 
     <table class="table">
-      <thead>
-      <tr>
-        <th></th>
-        <th>Temp (min/max)</th>
-        <th>Humidity</th>
-        <th>Wind</th>
-      </tr>
-      </thead>
       <tbody>
       <tr *ngIf="today.morning">
         <td><h4>morning</h4></td>
         <td>
-          <h4>{{today.morning.main.temp}}  <span class="temp_suffix"></span>C
+          <h4>
+            <span class="weather-icon temp"></span>
+            {{today.morning.main.temp}}  <span class="temp_suffix"></span>C
             <small>{{today.morning.main.temp_min}}/{{today.morning.main.temp_max}}</small>
           </h4>
           <!--<strong>{{today.morning.weather.description}}</strong>-->
         </td>
-        <td><h4>{{today.morning.main.humidity}}%</h4></td>
-        <td><h4>{{today.morning.wind.speed}} M/S</h4></td>
+        <td>
+          <h4>
+            <span class="weather-icon humidity"></span>
+            {{today.morning.main.humidity}}%
+          </h4>
+        </td>
+        <td>
+          <h4>
+            <span class="weather-icon wind"></span>
+            {{today.morning.wind.speed}} M/S
+          </h4>
+        </td>
       </tr>
       <tr *ngIf="today.noon">
         <td><h4>noon</h4></td>
         <td>
-          <h4>{{today.noon.main.temp}}  <span class="temp_suffix"></span>C
+          <h4>
+            <span class="weather-icon temp"></span>
+            {{today.noon.main.temp}}  <span class="temp_suffix"></span>C
             <small>{{today.noon.main.temp_min}}/{{today.noon.main.temp_max}}</small>
           </h4>
           <!--<strong>{{today.noon.weather.description}}</strong>-->
         </td>
-        <td><h4>{{today.noon.main.humidity}}%</h4></td>
-        <td><h4>{{today.noon.wind.speed}} M/S</h4></td>
+        <td>
+          <h4>
+            <span class="weather-icon humidity"></span>
+            {{today.noon.main.humidity}}%
+          </h4>
+        </td>
+        <td>
+          <h4>
+            <span class="weather-icon wind"></span>
+            {{today.noon.wind.speed}} M/S
+          </h4>
+        </td>
       </tr>
       <tr *ngIf="today.evening">
         <td><h4>evening</h4></td>
         <td>
-          <h4>{{today.evening.main.temp}}  <span class="temp_suffix"></span>C
+          <h4>
+            <span class="weather-icon temp"></span>
+            {{today.evening.main.temp}}  <span class="temp_suffix"></span>C
             <small>{{today.evening.main.temp_min}}/{{today.evening.main.temp_max}}</small>
           </h4>
           <!--<strong>{{today.evening.weather.description}}</strong>-->
         </td>
-        <td><h4>{{today.evening.main.humidity}}%</h4></td>
-        <td><h4>{{today.evening.wind.speed}} M/S</h4></td>
+        <td>
+          <h4>
+            <span class="weather-icon humidity"></span>
+            {{today.evening.main.humidity}}%
+          </h4>
+        </td>
+        <td>
+          <h4>
+            <span class="weather-icon wind"></span>
+            {{today.evening.wind.speed}} M/S
+          </h4>
+        </td>
       </tr>
       <tr *ngIf="today.night">
         <td><h4>night</h4></td>
         <td>
-          <h4>{{today.night.main.temp}}  <span class="temp_suffix"></span>C
+          <h4>
+            <span class="weather-icon temp"></span>
+            {{today.night.main.temp}}  <span class="temp_suffix"></span>C
             <small>{{today.night.main.temp_min}}/{{today.night.main.temp_max}}</small>
           </h4>
           <!--<strong>{{today.night.weather.description}}</strong>-->
         </td>
-        <td><h4>{{today.night.main.humidity}}%</h4></td>
-        <td><h4>{{today.night.wind.speed}} M/S</h4></td>
+        <td>
+          <h4>
+            <span class="weather-icon humidity"></span>
+            {{today.night.main.humidity}}%
+          </h4>
+        </td>
+        <td>
+          <h4>
+            <span class="weather-icon wind"></span>
+            {{today.night.wind.speed}} M/S
+          </h4>
+        </td>
       </tr>
       </tbody>
     </table>

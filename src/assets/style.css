@@ -17,21 +17,48 @@ body{
   padding: 40px 20px;
 }
 
+.weather-icon{
+  background: url('weather-icons.png') no-repeat;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  vertical-align: middle;
+}
+.weather-icon.temp{
+  background-position: -4px -2px;
+}
+.weather-icon.humidity{
+  background-position: -5px -100px;
+}
+.weather-icon.wind{
+  background-position: -85px -100px;
+}
+
 #appcontainer{
-
-
   background: #0277bd; /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #0277bd , #000004); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #0277bd , #000004); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   /*background-color: #fff;*/
-  border: 1px solid #333;
-  margin: 0 auto;
+  border: 1px solid #222;
+  border-radius: 10px;
+  box-shadow: 1px -3px 80px #2a2a2a;
+  margin: 50px auto;
   width: 500px;
 }
 
-#appcontainer #ui-main {
-  margin-top: 30px;
+#ui-main {
+  margin-top: 60px;
 }
+#ui-main .ui-icon {
+  background: url("weather-icons-set1.png") no-repeat;
+  height: 175px;
+  width: 190px;
+}
+
+#ui-main .ui-icon.temp{
+  background-position: -25px -10px;
+}
+
 #appcontainer .errorContainer {
   margin: 30px 20px;
   padding: 10px;
@@ -94,6 +121,10 @@ body{
 
 #intraday{
   color: #ffffff;
+  margin-top: 20px;
+}
+#intraday h4{
+  font-size: 16px;
 }
 #intraday tr>td:first-child{
   text-transform: uppercase;
@@ -109,3 +140,10 @@ body{
   padding: 20px 10px;
 }
 
+#intraday .table > tbody > tr > td{
+  border-top: 0;
+}
+
+#intraday .table tr > td:first-child h4 {
+  padding-left: 15px;
+}
