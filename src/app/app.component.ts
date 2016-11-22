@@ -27,15 +27,13 @@ export class AppComponent implements OnInit{
 
     this.hasError = false;
     this.getUserLocation();
-    //this.loadLocations();
-    //this.forecastByCityName('lucknow');
-    //this.forecastByCityId(524901);
-    //this.forecastByCoords(35,139 );
   }
 
   loadWeatherData(query){
     this.forecastByCityName(query);
   }
+
+  //Call service method to get user's city and country
   getUserLocation(){
     this._weatherService.getLocation()
         .subscribe(data => {
@@ -45,6 +43,7 @@ export class AppComponent implements OnInit{
   }
 
 
+  //Store data from weather API into weather model
   formatWeather(data){
     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var weekdayName = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -63,9 +62,6 @@ export class AppComponent implements OnInit{
           date = new Date(list['dt_txt'].replace(' ', 'T')),
           dayName = weekdayName[date.getDay()],
           shortDayName = dayName.substr(0,3);
-      //console.log("date: "+date);
-      //console.log("date getday: "+date.getDay());
-      //console.log("dayname: "+dayName);
 
       var obj = {
         "main":   {
@@ -116,24 +112,9 @@ export class AppComponent implements OnInit{
     }
 
     this.currentWeather = this.today['noon'];
-
-    console.log("weather today: ");
-    console.log(this.today);
-
-    console.log("weather other days: ");
-    console.log(this.otherDays);
-
   }
 
-  //Get location data from local file
-  //loadLocations(){
-  //  this._weatherService.getLocations()
-  //      .subscribe(data => {
-  //        this.locations = data;
-  //        console.log(this.locations);
-  //      })
-  //}
-
+  //Call service method to get weather data from API
   forecastByCityName(city) {
     this._weatherService.makeUrl('q=' + city);
     this._weatherService.getForecast()
@@ -148,21 +129,4 @@ export class AppComponent implements OnInit{
       });
   }
 
-  forecastByCityId(id){
-    this._weatherService.makeUrl('id='+parseInt(id));
-    this._weatherService.getForecast()
-      .subscribe(data => {
-        console.log(data);
-      });
-
-  }
-
-  forecastByCoords(lat,lon){
-    this._weatherService.makeUrl('lat='+lat+'&lon='+lon);
-    this._weatherService.getForecast()
-      .subscribe(data => {
-        console.log(data);
-      });
-
-  }
 }
