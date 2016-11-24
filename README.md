@@ -1,5 +1,7 @@
 # Myweather
 
+![alt tag](src/assets/screenshot.png)
+
 ## Setup
 - Run `npm install` from the project root to install dependencies
 - Create a file `/src/config/app.config.ts` with the following contents:
