@@ -20,6 +20,9 @@ export class WeatherService{
 
     //Create the URL for making API call
     makeUrl(query){
+      if(this._configuration.ApiKey == null)
+        this.apiURL = '../data/sample.json';
+      else
         this.apiURL = this.baseUrl+'?'+query+'&APPID='+this._configuration.ApiKey+'&units=metric';
     }
 
@@ -33,7 +36,6 @@ export class WeatherService{
     //Get weather data from openweathermap API
     getForecast(){
         return this.http.get(this.apiURL)
-        //return this.http.get('../data/sample.json')
                    .map(response => response.json())
                    .catch(this.handleError);
     }
