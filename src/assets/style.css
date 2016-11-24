@@ -50,7 +50,7 @@ body{
   margin-top: 60px;
 }
 #ui-main .ui-icon {
-  background: url("weather-icons-set1.png") no-repeat;
+  background: url("weather-icons-set-big.png") no-repeat;
   height: 175px;
   width: 190px;
 }
@@ -119,14 +119,16 @@ body{
   padding: 5px 0 10px 20px;
 }
 
-#intraday{
-  color: #ffffff;
+#intraday, #nextDays{
   margin-top: 20px;
 }
-#intraday h4{
+.table{
+  color: #ffffff;
+}
+.table h4{
   font-size: 16px;
 }
-#intraday tr>td:first-child{
+.table tr>td:first-child{
   text-transform: uppercase;
 }
 #intraday .unit {
@@ -140,10 +142,14 @@ body{
   padding: 20px 10px;
 }
 
-#intraday .table > tbody > tr > td{
+.table > tbody > tr > td{
   border-top: 0;
 }
 
-#intraday .table tr > td:first-child h4 {
+ .table tr > td:first-child h4 {
   padding-left: 15px;
+}
+
+#nextDays .table>tr>th{
+  border: 1px solid #fff;
 }

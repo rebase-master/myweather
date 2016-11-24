@@ -4,6 +4,7 @@ import {Configuration} from "./app.constants";
 import {WeatherModel} from "./app.model";
 import {Observable} from "rxjs/Rx";
 import {Location} from "./location.interface";
+import {WeekWeatherModel} from "./app.weekweather.model";
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,9 @@ import {Location} from "./location.interface";
 
 export class AppComponent implements OnInit{
 
-  public weather: WeatherModel[] = [];
   public currentWeather: WeatherModel;
-  public today: any = [];
-  public otherDays: any = [];
+  public today: WeekWeatherModel;
+  public nextDays: WeekWeatherModel[] = [];
   public location: string;
   public hasError: boolean;
 
@@ -44,100 +44,113 @@ export class AppComponent implements OnInit{
 
 
   //Store data from weather API into weather model
-  formatWeather(data){
+  formatWeather(data) {
     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var weekdayName = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var weekdayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    this.weather = [];
-    this.location = data.city.name+","+data.city.country;
+    this.location = data.city.name + "," + data.city.country;
 
     var dateToday = new Date();
 
-    for(var i=0;i<data.list.length;i++){
+    for (var i = 0; i < data.list.length; i++) {
 
       var list = data.list[i],
-          main = list['main'],
-          weather = list['weather'][0],
-          wind = list['wind'],
-          date = new Date(list['dt_txt'].replace(' ', 'T')),
-          dayName = weekdayName[date.getDay()],
-          shortDayName = dayName.substr(0,3);
+        main = list['main'],
+        weather = list['weather'][0],
+        wind = list['wind'],
+        date = new Date(list['dt_txt'].replace(' ', 'T')),
+        dayName = weekdayName[date.getDay()],
+        shortDayName = dayName.substr(0, 3),
+        dayTime,
+        hour,
+        obj
+        ;
 
-      var obj = {
-        "main":   {
+      obj = {
+        "main": {
           "temp": main.temp,
           "temp_min": main.temp_min,
           "temp_max": main.temp_max,
           "humidity": main.humidity,
         },
+        "day": dayName,
         "weather": {
-          "icon": "http://openweathermap.org/img/w/"+weather['icon']+".png",
-          "description":  weather['description'],
+          "icon": "http://openweathermap.org/img/w/" + weather['icon'] + ".png",
+          "description": weather['description'],
         },
-        "date": dayName+", "+ monthNames[date.getMonth()]+" "+date.getDate(),
+        "date": monthNames[date.getMonth()] + " " + date.getDate(),
         "wind": {
           "speed": wind['speed'],
           "degree": wind['degree']
         }
       };
 
-      var dayTime = 'noon';
+      hour = date.getHours();
 
-      if(date.getHours() == 6) {
+      if (hour == 6) {
         dayTime = 'morning';
       }
-      else if(date.getHours() == 12){
+      else if (hour == 12) {
         dayTime = 'noon';
       }
-      else if(date.getHours() == 18){
+      else if (hour == 18) {
         dayTime = 'evening';
       }
-      else if(date.getHours() == 21){
+      else if (hour == 21) {
         dayTime = 'night';
+      } else {
+        dayTime = null;
       }
 
-      if(dateToday.getDate() == date.getDate()){
-        this.today[dayTime] = new WeatherModel(obj);
-      }else{
-        if(!this.otherDays.hasOwnProperty(shortDayName)){
-            this.otherDays[shortDayName] = [];
-        }else{
-            this.otherDays[shortDayName][dayTime] = new WeatherModel(obj);
-        }
+      if (dayTime != null) {
+        var index = this.inArray(this.nextDays, shortDayName);
+        if (index == -1) {
+          this.nextDays.push(new WeekWeatherModel({
+            day: shortDayName,
+            dayWeather: {
+              name: dayTime,
+              weather: obj
+            }
+          }));
+        } else {
+          this.nextDays[index].dayWeather.push({
+            name: dayTime,
+            weather: obj
+          })
+        }//else
+
+      }//if
+
+    }//for loop
+
+    this.today = this.nextDays.shift();
+    this.currentWeather = this.today['dayWeather'].shift()['weather'];
+
+  }//formatweather
+
+  inArray(o, item){
+    var index = -1;
+    o.some(function (x) {
+      if( x['day'].localeCompare(item) == 0){
+        index  = o.indexOf(x);
+        return index;
       }
-
-      this.weather.push(
-        new WeatherModel(obj)
-      );
-    }
-    console.log("dayTime: "+dayTime);
-    console.log(this.today);
-    if(this.today.hasOwnProperty('morning'))
-      this.currentWeather = this.today['morning'];
-    else if(this.today.hasOwnProperty('noon'))
-      this.currentWeather = this.today['noon'];
-    else if(this.today.hasOwnProperty('evening'))
-      this.currentWeather = this.today['evening'];
-    else
-      this.currentWeather = this.today['night'];
-
-
-    console.log(this.currentWeather);
-
+    });
+    return index ;
   }
 
   //Call service method to get weather data from API
   forecastByCityName(city) {
+    this.currentWeather = null;
+    this.nextDays = [];
     this._weatherService.makeUrl('q=' + city);
     this._weatherService.getForecast()
       .subscribe(data => {
-        this.formatWeather(data);
-        this.hasError = false;
+          this.formatWeather(data);
+          this.hasError = false;
       },
       error => {
         this.hasError = true;
-        this.currentWeather = null;
-        this.weather = [];
       });
   }
 
